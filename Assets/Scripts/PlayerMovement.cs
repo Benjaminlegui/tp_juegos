@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerPhysics;
     private bool isGrounded;
     private bool jumpRequested;
+    public static float minX;
+    public static float maxX;
 
     void Awake()
     {
@@ -39,6 +41,10 @@ public class PlayerMovement : MonoBehaviour
         moveAction.action.canceled += HandleInput;
 
         jumpAction.action.performed += HandleJump;
+        playerPhysics.freezeRotation = true;
+        float halfWidth = Camera.main.orthographicSize * Camera.main.aspect;
+        minX = -halfWidth;
+        maxX = halfWidth;
     }
 
     // Update is called once per frame
@@ -47,6 +53,10 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         playerPhysics.linearVelocity = new Vector2(moveInput.x * speed, playerPhysics.linearVelocityY);
+
+        Vector3 clampedPos = transform.position;
+        clampedPos.x = Mathf.Clamp(clampedPos.x, minX, maxX);
+        transform.position = clampedPos;
 
         if (isGrounded && jumpRequested)
         {
@@ -67,17 +77,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetBool("isRunning", false);
         }
-
-        if (moveInput.x == -1)
-        {
-
-            transform.Rotate(0, 180f, 0);
-        }
-
-        if (moveInput.x == 1)
-        {
-            transform.Rotate(0, 180f, 0);
-        }
     }
 
     private void HandleJump(InputAction.CallbackContext context)
@@ -86,10 +85,5 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpRequested = true;
         }
-    }
-
-    public void EventTriggered()
-    {
-        // Debug.Log("test");
     }
 }
