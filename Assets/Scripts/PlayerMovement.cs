@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
+    [SerializeField] private InputActionReference kickAction;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] float speed = 12f;
     [SerializeField] float jumpForce = 6f;
@@ -29,12 +30,14 @@ public class PlayerMovement : MonoBehaviour
     {
         moveAction.action.Enable();
         jumpAction.action.Enable();
+        kickAction.action.Enable();
     }
 
     void OnDisable()
     {
         moveAction.action.Disable();
         jumpAction.action.Disable();
+        kickAction.action.Disable();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveAction.action.performed += HandleInput;
         moveAction.action.canceled += HandleInput;
+        kickAction.action.performed += HandleKick;
 
         jumpAction.action.performed += HandleJump;
         playerPhysics.freezeRotation = true;
@@ -98,5 +102,10 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpRequested = true;
         }
+    }
+
+    private void HandleKick(InputAction.CallbackContext ctx)
+    {
+        _animator.SetTrigger("Kick");
     }
 }
