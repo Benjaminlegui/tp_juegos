@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] float speed = 12f;
     [SerializeField] float jumpForce = 6f;
     [SerializeField] private LayerMask groundLayer;
@@ -14,12 +15,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerPhysics;
     private bool isGrounded;
     private bool jumpRequested;
+    private bool facingLeft = true;
     public static float minX;
     public static float maxX;
 
     void Awake()
     {
         playerPhysics = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()
@@ -63,12 +66,22 @@ public class PlayerMovement : MonoBehaviour
             playerPhysics.linearVelocity = new Vector2(moveInput.x * speed, jumpForce);
             jumpRequested = false;
         }
+
+        if (Mathf.Abs(moveInput.x) > 0.01f)
+        {
+            bool wantLeft = moveInput.x > 0f;
+            if (wantLeft != facingLeft)
+            {
+                facingLeft = wantLeft;
+                spriteRenderer.flipX = !facingLeft;
+            }
+        }
     }
 
     private void HandleInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        Debug.Log($"Move input: {moveInput.x}");
+
         if (moveInput.x != 0)
         {
             _animator.SetBool("isRunning", true);
