@@ -35,6 +35,15 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateLever"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdeae6d0-5b00-4405-9a88-fe8863d4486e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,17 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be5c26d6-0faa-49bc-adbe-d8799b5396bd"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateLever"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +77,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         // PlayerMovement
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerMovement_ActivateLever = m_PlayerMovement.FindAction("ActivateLever", throwIfNotFound: true);
     }
 
     ~@PlayerControlls()
@@ -124,11 +145,13 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerMovement;
     private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
     private readonly InputAction m_PlayerMovement_Jump;
+    private readonly InputAction m_PlayerMovement_ActivateLever;
     public struct PlayerMovementActions
     {
         private @PlayerControlls m_Wrapper;
         public PlayerMovementActions(@PlayerControlls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
+        public InputAction @ActivateLever => m_Wrapper.m_PlayerMovement_ActivateLever;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -141,6 +164,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @ActivateLever.started += instance.OnActivateLever;
+            @ActivateLever.performed += instance.OnActivateLever;
+            @ActivateLever.canceled += instance.OnActivateLever;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -148,6 +174,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @ActivateLever.started -= instance.OnActivateLever;
+            @ActivateLever.performed -= instance.OnActivateLever;
+            @ActivateLever.canceled -= instance.OnActivateLever;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -168,5 +197,6 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     public interface IPlayerMovementActions
     {
         void OnJump(InputAction.CallbackContext context);
+        void OnActivateLever(InputAction.CallbackContext context);
     }
 }
