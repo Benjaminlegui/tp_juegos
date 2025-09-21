@@ -20,7 +20,7 @@ public class PlayerDeathOnFall : MonoBehaviour
 
     void Update()
     {
-        if (dead || cam == null || !cam.startScrolling) return;
+        if (dead || cam == null) return;
 
         float bottomY = cam.BottomVisibleWorldY();
         if (transform.position.y < bottomY)

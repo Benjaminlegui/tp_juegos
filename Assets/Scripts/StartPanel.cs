@@ -27,8 +27,8 @@ public class GameStarter : MonoBehaviour
     private void StartGame()
     {
         gameStarted = true;
-        Time.timeScale = 1f; // reanuda el juego
-        startOverlay.SetActive(false); // oculta el overlay
+        Time.timeScale = 1f;
+        startOverlay.SetActive(false);
         playerMovement.enabled = true;
     }
 }

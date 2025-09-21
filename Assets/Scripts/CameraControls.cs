@@ -23,21 +23,18 @@ public class CameraControls : MonoBehaviour
     {
         if (!startScrolling || player == null) return;
 
-        // objetivo mínimo: seguir al jugador pero solo hacia arriba
         float desiredY = player.position.y;
 
         if (onlyMoveUp)
-            targetY = Mathf.Max(targetY, desiredY); // nunca bajar el target
+            targetY = Mathf.Max(targetY, desiredY);
         else
             targetY = desiredY;
 
-        // además, la cámara sube por su cuenta a una velocidad constante
         targetY += scrollSpeed * Time.deltaTime;
 
-        // suavizado simple
         float newY = Mathf.Lerp(transform.position.y, targetY, 0.15f);
         if (onlyMoveUp)
-            newY = Mathf.Max(transform.position.y, newY); // evita bajar por lerp
+            newY = Mathf.Max(transform.position.y, newY);
 
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
@@ -50,11 +47,10 @@ public class CameraControls : MonoBehaviour
 
     public void StopScrolling()
     {
-        Debug.Log("stop");
         startScrolling = false;
     }
 
-    // Helper para Game Over por “alcance”
+    // Bottom position of the camera
     public float BottomVisibleWorldY()
     {
         return transform.position.y - halfHeight;

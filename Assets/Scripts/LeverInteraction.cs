@@ -33,7 +33,6 @@ public class LeverInteraction : MonoBehaviour
         if (collision.transform == player)
         {
             playerInteracting = true;
-            Debug.Log("Entre");
         }
     }
 
@@ -42,7 +41,6 @@ public class LeverInteraction : MonoBehaviour
         if (collision.transform == player)
         {
             playerInteracting = false;
-            Debug.Log("Sali");
         }
     }
 
