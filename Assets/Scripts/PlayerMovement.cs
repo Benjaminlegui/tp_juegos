@@ -73,12 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Mathf.Abs(moveInput.x) > 0.01f)
         {
-            bool wantLeft = moveInput.x > 0f;
-            if (wantLeft != facingLeft)
-            {
-                facingLeft = wantLeft;
-                spriteRenderer.flipX = !facingLeft;
-            }
+            spriteRenderer.flipX = moveInput.x < 0f;
         }
     }
 

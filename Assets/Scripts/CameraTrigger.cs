@@ -13,7 +13,6 @@ public class CameraTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTrigger");
         if (other.transform == player)
         {
             camControls.StartScrolling();
