@@ -34,24 +34,36 @@ public class PlayerDeathOnFall : MonoBehaviour
         dead = true;
 
         cam.StopScrolling();
+        PositionAtBottom();
+        FreezePlayer();
+        DisablePlayerScripts();
+        DeathAnimation();
+    }
 
-        // 2) Player rest on the bottom of the camera
-        float offsetY = spriteRenderer.bounds.extents.y;
-        var p = transform.position;
-        p.y = cam.BottomVisibleWorldY() + offsetY;
-        transform.position = p;
+    private void DeathAnimation()
+    {
+        if (_animator) _animator.SetTrigger(deathTrigger);
+    }
 
-        // 3) Freeze the player from falliing
+    private void DisablePlayerScripts()
+    {
+        foreach (var component in controlsToDisable)
+            if (component) component.enabled = false;
+    }
+
+    private void FreezePlayer()
+    {
         playerPhysics.linearVelocity = Vector2.zero;
         playerPhysics.angularVelocity = 0f;
         playerPhysics.gravityScale = 0f;
         playerPhysics.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+    }
 
-        // 4) Disable all of the scripts that controls the player
-        foreach (var component in controlsToDisable)
-            if (component) component.enabled = false;
-
-        // 5) Execute death animation
-        if (_animator) _animator.SetTrigger(deathTrigger);
+    private void PositionAtBottom()
+    {
+        float offsetY = spriteRenderer.bounds.extents.y;
+        var p = transform.position;
+        p.y = cam.BottomVisibleWorldY() + offsetY;
+        transform.position = p;
     }
 }
