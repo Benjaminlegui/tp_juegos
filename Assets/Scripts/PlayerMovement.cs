@@ -124,5 +124,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleKick(InputAction.CallbackContext ctx)
     {
         _animator.SetTrigger(kickAnimation);
+        playerAudio.PlayKickSfx();
     }
 }

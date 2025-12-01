@@ -21,7 +21,19 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: e9af30c9c66b44dd395181bab9e72def, type: 3}
     volume: 1
-  ui: []
+  - audioName: kick
+    clips:
+    - {fileID: 8300000, guid: fa3623d04602742acab6744dc0fc8dd9, type: 3}
+    volume: 1
+  ui:
+  - audioName: ui_button_selected
+    clips:
+    - {fileID: 8300000, guid: e01a854886b2143f8a2901f7d381bb9f, type: 3}
+    volume: 1
+  - audioName: ui_button_submitted
+    clips:
+    - {fileID: 8300000, guid: d1c64d8ca9a8d4714be5afb9d57d732e, type: 3}
+    volume: 1
   music:
   - audioName: music
     clips:

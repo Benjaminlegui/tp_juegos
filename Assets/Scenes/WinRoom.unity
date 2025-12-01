@@ -283,6 +283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3383793644785431221, guid: 9c36b87f09d444d5e8fc3470198b26b3, type: 3}
+      propertyPath: kickAudio
+      value: kick
+      objectReference: {fileID: 0}
     - target: {fileID: 3940416247433776063, guid: 9c36b87f09d444d5e8fc3470198b26b3, type: 3}
       propertyPath: playerAudio
       value: 

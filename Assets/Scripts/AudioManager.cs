@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     [SerializeField] private AudioDB audioDB;
     [SerializeField] private AudioSource bgmSource;
+    [SerializeField] private AudioSource uiSfxSource;
 
     private void Awake()
     {
@@ -45,6 +46,23 @@ public class AudioManager : MonoBehaviour
 
         sfxSource.loop = false;
         sfxSource.PlayOneShot(clip);
+    }
+
+    public void PlayUISFX(string soundName)
+    {
+        var data = audioDB.Get(soundName);
+        if (data == null)
+        {
+            Debug.Log("Attempt to play sound - " + soundName);
+            return;
+        }
+
+        var clip = data.GetRandomClip();
+        if (clip == null) return;
+
+        uiSfxSource.clip = clip;
+
+        uiSfxSource.PlayOneShot(clip);
     }
 
     public void StopSfx(AudioSource sfxSource)
