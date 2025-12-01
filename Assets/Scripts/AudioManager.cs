@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         var clip = data.GetRandomClip();
         if (clip == null) return;
 
-        sfxSource.pitch = Random.Range(0.9f, 1.1f);
+        sfxSource.pitch = Random.Range(minPitch, maxPitch);
         sfxSource.clip = clip;
 
         if (type == "loop")
