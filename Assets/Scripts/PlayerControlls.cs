@@ -109,6 +109,15 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnyButtonPressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""afe45af1-70b5-4728-b9a8-f8b587b1ec55"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -133,6 +142,17 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""action"": ""ActivateLever"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4f6f585-8ce9-4d76-ba68-a1070ec07466"",
+                    ""path"": ""*/<Button>"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyButtonPressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_ActivateLever = m_PlayerMovement.FindAction("ActivateLever", throwIfNotFound: true);
+        m_PlayerMovement_AnyButtonPressed = m_PlayerMovement.FindAction("AnyButtonPressed", throwIfNotFound: true);
     }
 
     ~@PlayerControlls()
@@ -225,6 +246,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_ActivateLever;
+    private readonly InputAction m_PlayerMovement_AnyButtonPressed;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerMovement".
     /// </summary>
@@ -244,6 +266,10 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerMovement/ActivateLever".
         /// </summary>
         public InputAction @ActivateLever => m_Wrapper.m_PlayerMovement_ActivateLever;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerMovement/AnyButtonPressed".
+        /// </summary>
+        public InputAction @AnyButtonPressed => m_Wrapper.m_PlayerMovement_AnyButtonPressed;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -276,6 +302,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @ActivateLever.started += instance.OnActivateLever;
             @ActivateLever.performed += instance.OnActivateLever;
             @ActivateLever.canceled += instance.OnActivateLever;
+            @AnyButtonPressed.started += instance.OnAnyButtonPressed;
+            @AnyButtonPressed.performed += instance.OnAnyButtonPressed;
+            @AnyButtonPressed.canceled += instance.OnAnyButtonPressed;
         }
 
         /// <summary>
@@ -293,6 +322,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @ActivateLever.started -= instance.OnActivateLever;
             @ActivateLever.performed -= instance.OnActivateLever;
             @ActivateLever.canceled -= instance.OnActivateLever;
+            @AnyButtonPressed.started -= instance.OnAnyButtonPressed;
+            @AnyButtonPressed.performed -= instance.OnAnyButtonPressed;
+            @AnyButtonPressed.canceled -= instance.OnAnyButtonPressed;
         }
 
         /// <summary>
@@ -347,5 +379,12 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnActivateLever(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AnyButtonPressed" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAnyButtonPressed(InputAction.CallbackContext context);
     }
 }

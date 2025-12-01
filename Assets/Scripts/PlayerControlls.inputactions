@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerControlls",
     "maps": [
         {
@@ -18,6 +19,15 @@
                     "name": "ActivateLever",
                     "type": "Button",
                     "id": "cdeae6d0-5b00-4405-9a88-fe8863d4486e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AnyButtonPressed",
+                    "type": "Button",
+                    "id": "afe45af1-70b5-4728-b9a8-f8b587b1ec55",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -44,6 +54,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ActivateLever",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4f6f585-8ce9-4d76-ba68-a1070ec07466",
+                    "path": "*/<Button>",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AnyButtonPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

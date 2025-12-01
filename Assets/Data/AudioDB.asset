@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7976ae7cc1047f3a74429bdde6fc43, type: 3}
+  m_Name: AudioDB
+  m_EditorClassIdentifier: 
+  player:
+  - audioName: jump
+    clips:
+    - {fileID: 8300000, guid: 1a1958c84f34741a7aacc22dc63de461, type: 3}
+    volume: 1
+  - audioName: run
+    clips:
+    - {fileID: 8300000, guid: e9af30c9c66b44dd395181bab9e72def, type: 3}
+    volume: 1
+  ui: []
+  music:
+  - audioName: music
+    clips:
+    - {fileID: 8300000, guid: e0353bd953700416e97cd5a09922dacc, type: 3}
+    volume: 1

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(PlayerAudio))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputActionReference moveAction;
@@ -12,11 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private Animator _animator;
+    [SerializeField] private string runningAnimation = "isRunning";
+    [SerializeField] private string kickAnimation = "Kick";
+    [SerializeField] private PlayerAudio playerAudio;
     private Vector2 moveInput;
     private Rigidbody2D playerPhysics;
     private bool isGrounded;
     private bool jumpRequested;
-    private bool facingLeft = true;
     public static float minX;
     public static float maxX;
 
@@ -24,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerPhysics = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAudio = GetComponent<PlayerAudio>();
     }
 
     void OnEnable()
@@ -46,9 +51,10 @@ public class PlayerMovement : MonoBehaviour
         moveAction.action.performed += HandleInput;
         moveAction.action.canceled += HandleInput;
         kickAction.action.performed += HandleKick;
-
         jumpAction.action.performed += HandleJump;
+
         playerPhysics.freezeRotation = true;
+
         float halfWidth = Camera.main.orthographicSize * Camera.main.aspect;
         minX = -halfWidth;
         maxX = halfWidth;
@@ -68,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && jumpRequested)
         {
             playerPhysics.linearVelocity = new Vector2(moveInput.x * speed, jumpForce);
+            playerAudio.PlayJumpSfx();
             jumpRequested = false;
         }
 
@@ -83,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveInput.x != 0)
         {
-            _animator.SetBool("isRunning", true);
+            _animator.SetBool(runningAnimation, true);
         }
         else
         {
-            _animator.SetBool("isRunning", false);
+            _animator.SetBool(runningAnimation, false);
         }
     }
 
@@ -101,6 +108,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleKick(InputAction.CallbackContext ctx)
     {
-        _animator.SetTrigger("Kick");
+        _animator.SetTrigger(kickAnimation);
     }
 }

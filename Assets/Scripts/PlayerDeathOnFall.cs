@@ -8,7 +8,7 @@ public class PlayerDeathOnFall : MonoBehaviour
     private Rigidbody2D playerPhysics;
     private SpriteRenderer spriteRenderer;
     private Animator _animator;
-    private bool dead;
+    private bool dead = false;
 
     void Start()
     {
@@ -38,6 +38,8 @@ public class PlayerDeathOnFall : MonoBehaviour
         FreezePlayer();
         DisablePlayerScripts();
         DeathAnimation();
+        AudioManager.instance.StopBGM();
+        SceneController.instance.ChangeScene("MainMenu");
     }
 
     private void DeathAnimation()
