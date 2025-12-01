@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class PlayerDeathOnFall : MonoBehaviour
 {
     [SerializeField] private string deathTrigger = "Die";
     [SerializeField] private MonoBehaviour[] controlsToDisable;
+    [SerializeField] private GameObject lostCanvas;
     private CameraControls cam;
     private Rigidbody2D playerPhysics;
     private SpriteRenderer spriteRenderer;
@@ -38,8 +40,13 @@ public class PlayerDeathOnFall : MonoBehaviour
         FreezePlayer();
         DisablePlayerScripts();
         DeathAnimation();
+        ShowCanvas();
         AudioManager.instance.StopBGM();
-        SceneController.instance.ChangeScene("MainMenu");
+    }
+
+    private void ShowCanvas()
+    {
+        lostCanvas.SetActive(true);
     }
 
     private void DeathAnimation()

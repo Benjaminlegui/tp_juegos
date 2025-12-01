@@ -15,11 +15,6 @@ public class PlayerAudio : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
-    {
-        Debug.Log(audioSource);
-    }
-
     public void PlayJumpSfx()
     {
         AudioManager.instance.PlaySFX(jumpAudio, audioSource);

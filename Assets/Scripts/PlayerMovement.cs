@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(PlayerAudio))]
+[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputActionReference moveAction;
@@ -28,11 +28,17 @@ public class PlayerMovement : MonoBehaviour
     {
         playerPhysics = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        playerAudio = GetComponent<PlayerAudio>();
     }
 
     void OnEnable()
     {
+        moveAction.action.performed += HandleInput;
+        moveAction.action.canceled += HandleInput;
+
+        kickAction.action.performed += HandleKick;
+
+        jumpAction.action.performed += HandleJump;
+
         moveAction.action.Enable();
         jumpAction.action.Enable();
         kickAction.action.Enable();
@@ -40,19 +46,20 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDisable()
     {
+        moveAction.action.performed -= HandleInput;
+        moveAction.action.canceled -= HandleInput;
+
+        kickAction.action.performed -= HandleKick;
+
+        jumpAction.action.performed -= HandleJump;
+
         moveAction.action.Disable();
         jumpAction.action.Disable();
         kickAction.action.Disable();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        moveAction.action.performed += HandleInput;
-        moveAction.action.canceled += HandleInput;
-        kickAction.action.performed += HandleKick;
-        jumpAction.action.performed += HandleJump;
-
         playerPhysics.freezeRotation = true;
 
         float halfWidth = Camera.main.orthographicSize * Camera.main.aspect;
@@ -60,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         maxX = halfWidth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
