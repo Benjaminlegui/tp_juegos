@@ -14,10 +14,7 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        if (GetCurrentLevelName() == "WinRoom")
-        {
-            ReturnToMainMenu();
-        }
+        ReturnToMainMenu();
     }
 
     private void ReturnToMainMenu()
