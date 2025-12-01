@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
 
 
 
-    public void PlaySFX(string soundName, AudioSource sfxSource)
+    public void PlaySFX(string soundName, AudioSource sfxSource, string type)
     {
         var data = audioDB.Get(soundName);
         if (data == null)
@@ -33,8 +33,24 @@ public class AudioManager : MonoBehaviour
         var clip = data.GetRandomClip();
         if (clip == null) return;
 
+        sfxSource.pitch = Random.Range(0.9f, 1.1f);
         sfxSource.clip = clip;
+
+        if (type == "loop")
+        {
+            sfxSource.loop = true;
+            sfxSource.Play();
+            return;
+        }
+
+        sfxSource.loop = false;
         sfxSource.PlayOneShot(clip);
+    }
+
+    public void StopSfx(AudioSource sfxSource)
+    {
+        sfxSource.loop = false;
+        sfxSource.Stop();
     }
 
     public void PlayBGM(string musicName, float fadeTime = 0f)

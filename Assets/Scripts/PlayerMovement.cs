@@ -102,6 +102,15 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetBool(runningAnimation, false);
         }
+
+        if (moveInput.x != 0 && isGrounded)
+        {
+            playerAudio.PlayRunSfx();
+        }
+        else
+        {
+            playerAudio.StopRunSfx();
+        }
     }
 
     private void HandleJump(InputAction.CallbackContext context)

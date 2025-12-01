@@ -583,6 +583,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3730298585042809955, guid: 9c36b87f09d444d5e8fc3470198b26b3, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3940416247433776063, guid: 9c36b87f09d444d5e8fc3470198b26b3, type: 3}
       propertyPath: playerAudio
       value: 
