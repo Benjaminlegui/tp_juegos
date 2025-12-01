@@ -249,6 +249,7 @@ MonoBehaviour:
   _animator: {fileID: 8432927078038600633}
   runningAnimation: isRunning
   kickAnimation: Kick
+  playerAudio: {fileID: 3383793644785431221}
 --- !u!114 &8549235153211383696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +265,7 @@ MonoBehaviour:
   deathTrigger: Die
   controlsToDisable:
   - {fileID: 3940416247433776063}
+  lostCanvas: {fileID: 0}
 --- !u!81 &3543597161046947261
 AudioListener:
   m_ObjectHideFlags: 0
@@ -497,6 +499,7 @@ MonoBehaviour:
   audioSource: {fileID: 3730298585042809955}
   runAudio: run
   jumpAudio: jump
+  kickAudio: kick
 --- !u!1 &7163939927604676709
 GameObject:
   m_ObjectHideFlags: 0
