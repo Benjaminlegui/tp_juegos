@@ -7,6 +7,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioDB audioDB;
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource uiSfxSource;
+    [Space]
+    [Header("Random pitch values")]
+    [SerializeField] private float minPitch = 0.9f;
+    [SerializeField] private float maxPitch = 1.1f;
 
     private void Awake()
     {
