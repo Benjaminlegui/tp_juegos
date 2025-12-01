@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
+            AudioManager.instance.StopBGM();
             SceneController.instance.ChangeScene("MainMenu");
         }
     }
